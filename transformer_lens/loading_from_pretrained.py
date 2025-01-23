@@ -181,6 +181,7 @@ OFFICIAL_MODEL_NAMES = [
     "stabilityai/stablelm-tuned-alpha-3b",
     "stabilityai/stablelm-tuned-alpha-7b",
     "mistralai/Mistral-7B-v0.1",
+    "Endevor/InfinityRP-v1-7B",
     "mistralai/Mistral-7B-Instruct-v0.1",
     "mistralai/Mistral-Nemo-Base-2407",
     "mistralai/Mixtral-8x7B-v0.1",
@@ -232,7 +233,6 @@ OFFICIAL_MODEL_NAMES = [
     "microsoft/phi-1_5",
     "microsoft/phi-2",
     "microsoft/Phi-3-mini-4k-instruct",
-    "microsoft/phi-4",
     "google/gemma-2b",
     "google/gemma-7b",
     "google/gemma-2b-it",
@@ -626,6 +626,7 @@ MODEL_ALIASES = {
     ],
     "mistralai/Mistral-7B-v0.1": ["mistral-7b"],
     "mistralai/Mistral-7B-Instruct-v0.1": ["mistral-7b-instruct"],
+    "Endevor/InfinityRP-v1-7B": ["mistral-7b-instruct"],
     "mistralai/Mistral-Nemo-Base-2407": ["mistral-nemo-base-2407"],
     "mistralai/Mixtral-8x7B-v0.1": ["mixtral", "mixtral-8x7b"],
     "mistralai/Mixtral-8x7B-Instruct-v0.1": [
@@ -658,7 +659,6 @@ MODEL_ALIASES = {
     "microsoft/phi-1_5": ["phi-1_5"],
     "microsoft/phi-2": ["phi-2"],
     "microsoft/Phi-3-mini-4k-instruct": ["phi-3"],
-    "microsoft/phi-4": ["phi-4"],
     "google/gemma-2b": ["gemma-2b"],
     "google/gemma-7b": ["gemma-7b"],
     "google/gemma-2b-it": ["gemma-2b-it"],
@@ -698,7 +698,6 @@ NEED_REMOTE_CODE_MODELS = (
     "Qwen/Qwen-",
     "microsoft/phi-2",
     "microsoft/Phi-3-mini-4k-instruct",
-    "microsoft/phi-4",
 )
 
 
@@ -1326,11 +1325,6 @@ def convert_hf_model_config(model_name: str, **kwargs):
             "n_heads": hf_config.num_attention_heads,
             "d_mlp": hf_config.intermediate_size,
             "n_layers": hf_config.num_hidden_layers,
-            "n_key_value_heads": (
-                hf_config.num_key_value_heads
-                if hf_config.num_key_value_heads != hf_config.num_attention_heads
-                else None
-            ),
             "n_ctx": hf_config.max_position_embeddings,
             "eps": hf_config.rms_norm_eps,
             "d_vocab": hf_config.vocab_size,
